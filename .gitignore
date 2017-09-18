@@ -1,0 +1,7 @@
+node_modules
+bower_components
+dist
+npm-debug.log
+.idea
+.project
+.DS_Store
