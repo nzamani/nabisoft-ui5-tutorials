@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>SAPUI5 with handlebars</title>
+
+		<script
+			id="sap-ui-bootstrap"
+			src="https://openui5.hana.ondemand.com/1.44.19/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"></script>
+
+		<script>
+			sap.ui.getCore().attachInit(function () {
+				var oModel, oInput;
+
+				//let's create an empty model
+				oModel = new sap.ui.model.json.JSONModel();
+
+				// instead of setting the model for each control we simply set it once:
+				sap.ui.getCore().setModel(oModel);
+
+				oInput = new sap.m.Input({
+					value: "{/myModelText}",
+					placeholder: "Enter a name here",
+					valueLiveUpdate: true
+				}).placeAt("content");
+
+				//register our template
+				sap.ui.template("myHandlebarsTemplate");
+
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" role="application">
+
+		<div style="width:300px">
+			<div>Name:</div>
+			<div id="content"></div>
+			<br>
+			<div id="myHandlebarsTemplate">		<!-- data-type="text/x-handlebars-template" -->
+				<div>Hello {{text path="/myModelText"}}!</div>
+				<br>
+				<div>"{{text path="/myModelText"}}" is a nice name!</div>
+			</div>
+		</div>
+
+    </body>
+
+</html>

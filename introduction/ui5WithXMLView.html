@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>SAPUI5 with XMLBView (all in one single file)</title>
+
+		<script
+			id="sap-ui-bootstrap"
+			src="https://openui5.hana.ondemand.com/1.44.19/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+            data-sap-ui-compatVersion="edge"></script>
+
+		<!-- XMLView -->
+        <script id="myXmlView" type="ui5/xmlview">
+            <mvc:View
+                xmlns="sap.m"
+                xmlns:mvc="sap.ui.core.mvc">
+
+				<VBox width="300px">
+					<Label text="Name:"/>
+					<Input
+						value="{/myModelText}"
+						placeholder="Enter a name here"
+						valueLiveUpdate="true"/>
+
+					<Text
+						text="Hello {/myModelText}!"/>
+
+					<Text
+						text='"{/myModelText}" is a nice name!'/>
+				</VBox>
+
+            </mvc:View>
+        </script>
+
+		<script>
+			sap.ui.getCore().attachInit(function () {
+
+				//let's create an empty model
+				var oModel = new sap.ui.model.json.JSONModel();
+
+				// instead of setting the model for each control we simply set it once:
+				sap.ui.getCore().setModel(oModel);
+
+				// place the XMLView somewhere into DOM ###
+                sap.ui.xmlview({
+                    viewContent : jQuery("#myXmlView").html()
+				}).placeAt("content");
+
+			});
+		</script>
+
+	</head>
+
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+
+</html>
